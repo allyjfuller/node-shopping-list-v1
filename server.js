@@ -31,6 +31,24 @@ app.get('/shopping-list', (req, res) => {
   res.json(ShoppingList.get());
 });
 
+// my recipe code
+const {Recipes} = require('./models');
+
+const jsonParser = bodyParser.json();
+const app = express();
+
+app.use(morgan('common'));
+
+Recipes.create('chocolate milk', ['cocoa', 'milk', 'sugar']);
+Recipes.create('spaghetti bolognese', ['pasta', 'olive oil', 'tomato sauce']);
+Recipes.create('BLT sandwitch', ['bacon', 'lettuce', 'tomato', 'bread']);
+
+app.get('/recipes', (req, res) => {
+	res.json(Recipes.get());
+});
+
 app.listen(process.env.PORT || 8080, () => {
   console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
 });
+
+
